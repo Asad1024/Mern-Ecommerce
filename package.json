@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.2",
+    "react-icons": "^5.3.0",
+    "react-router-bootstrap": "^0.26.3"
+  },
+  "name": "mern-ecommerce",
+  "version": "2.0.0",
+  "description": "Ecommerce built with Mern Stack",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/seeder.js",
+    "data:destroy": "node backend/seeder.js -d"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Asad1024/Mern-Ecommerce.git"
+  },
+  "author": "Asad Shah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Asad1024/Mern-Ecommerce/issues"
+  },
+  "homepage": "https://github.com/Asad1024/Mern-Ecommerce#readme",
+  "devDependencies": {
+    "concurrently": "^9.0.1",
+    "nodemon": "^3.1.7"
+  }
+}
