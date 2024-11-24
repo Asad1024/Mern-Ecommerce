@@ -1,53 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap"
 import Rating from "../Rating/index"
-import axios from 'axios'
+import { useGetProductDetailsQuery } from '../../slices/productSlice'
 
 const ProductDetail = () => {
-    const { id: productId } = useParams()
-
-    const [productItem, setProductItem] = useState([])
-    const [loading, setLoading] = useState(true) // Add loading state
-    const [error, setError] = useState(null) // Add error state if something goes wrong
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const { data } = await axios.get(`/api/products/${productId}`)
-                setProductItem(data)
-                setLoading(false)
-            } catch (error) {
-                setError('Error fetching products')
-                setLoading(false)
-            }
-        }
-        fetchProducts()
-    }, [])
-
-    // Find the product based on the numericProductId
-    //const productItem = products.find((p) => p._id === numericProductId)
-
-    // Conditional rendering for loading and error handling
-    if (loading) {
-        return <h2>Loading...</h2>
-    }
-
-    if (error) {
-        return <h2>{error}</h2>
-    }
-
-    // Handle the case where no product is found
-    if (!productItem) {
-        return <h2>Product not found</h2>
-    }
+    const { id: productId } = useParams();
+    const { data: productItem, isLoading, error } = useGetProductDetailsQuery(productId);
 
     return (
         <>
             <Link className="btn btn-light my-3" to="/">
                 Go Back
             </Link>
-            <Row className="mt-4">
+            {isLoading ? (<h2> Laoding ...</h2 >) : error ? <div>{error?.data?.message || error.error}</div> : (<Row className="mt-4">
                 {/* Product Image Section */}
                 <Col md={6} className="d-flex justify-content-center align-items-center">
                     <Image
@@ -111,7 +77,7 @@ const ProductDetail = () => {
                         </ListGroup>
                     </Card>
                 </Col>
-            </Row>
+            </Row>)}
         </>
     )
 }
